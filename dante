@@ -60,91 +60,94 @@
       background-color: #555555;
     }
   </style>
-  <script>
-    function copyCode(containerId, buttonId) {
-      const container = document.getElementById(containerId);
-      const codeElement = container.querySelector('.code');
-      const code = codeElement.innerText;
+<script>
+  function copyCode(containerId, buttonId) {
+    const container = document.getElementById(containerId);
+    const codeElement = container.querySelector('.code');
+    const code = codeElement.innerText;
 
-      navigator.clipboard.writeText(code)
-        .then(() => {
-          const button = document.getElementById(buttonId);
-          button.innerText = '✓ copied!';
-          setTimeout(function() {
-            button.innerText = 'code copy';
-          }, 1000);
-        })
-        .catch((error) => {
-          console.error('Error al copiar el código:', error);
-        });
-    }
+    navigator.clipboard.writeText(code)
+      .then(() => {
+        const button = document.getElementById(buttonId);
+        button.innerText = '✓ copied!';
+        setTimeout(function() {
+          button.innerText = 'code copy';
+        }, 1000);
+      })
+      .catch((error) => {
+        console.error('Error al copiar el código:', error);
+      });
+  }
 
-    function typeCode(element, code, speed) {
-      let i = 0;
-      const interval = setInterval(() => {
-        if (i >= code.length) {
-          clearInterval(interval);
-          return;
-        }
-
-        const currentCode = code.substring(0, i + 1);
-        element.innerHTML = '<code>' + currentCode + '</code>';
-        i++;
-      }, speed);
-    }
-
-    window.onload = function() {
-      const containers = document.getElementsByClassName('code-container');
-      const speed = 1;
-
-      for (let i = 0; i < containers.length; i++) {
-        const container = containers[i];
-        const codeElement = container.querySelector('.code');
-        const code = codeElement.innerText.trim();
-
-        codeElement.innerHTML = '<code></code>';
-
-        typeCode(codeElement.firstChild, code, speed);
+  function typeCode(element, code, speed) {
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i >= code.length) {
+        clearInterval(interval);
+        return;
       }
-    };
-  </script>
+
+      const currentCode = code.substring(0, i + 1);
+      element.innerHTML = '<code>' + currentCode + '</code>';
+      i++;
+    }, speed);
+  }
+
+  window.onload = function() {
+    const containers = document.getElementsByClassName('code-container');
+
+    for (let i = 0; i < containers.length; i++) {
+      const container = containers[i];
+      const codeElement = container.querySelector('.code');
+      const code = codeElement.innerText.trim();
+      const speed = parseFloat(container.getAttribute('data-speed')) || 1;
+
+      codeElement.innerHTML = '<code></code>';
+
+      typeCode(codeElement.firstChild, code, speed);
+    }
+  };
+</script>
+
 </head>
 
 <body>
-  <!-- ------------------------------------------fila 1---------------------------------------------------------- -->
-  <div class="code-container" id="codeContainer1">
-    <div class="language">Python</div>
-    <pre class="code">
-      <code>
-        # Iniciar la interfaz
-        ventana.mainloop()
-      </code>
-    </pre>
-    <button class="copy-button" id="copyButton1" onclick="copyCode('codeContainer1', 'copyButton1')">code copy</button>
-  </div>
-  <!-- ------------------------------------------fila 2---------------------------------------------------------- -->
-  <div class="code-container" id="codeContainer2">
-    <div class="language">JavaScript</div>
-    <pre class="code">
-      <code>
-        // Obtener el elemento por ID
-      </code>
-    </pre>
-    <button class="copy-button" id="copyButton2" onclick="copyCode('codeContainer2', 'copyButton2')">code copy</button>
-  </div>
-  <!-- ------------------------------------------fila 3---------------------------------------------------------- -->
-  <div class="code-container" id="codeContainer3">
-    <div class="language">JavaScript</div>
-    <pre class="code">
-      <code>
-        // Obtener el elemento por ID
-      </code>
-    </pre>
-    <button class="copy-button" id="copyButton3" onclick="copyCode('codeContainer3', 'copyButton3')">code copy</button>
-  </div>
+<!-- ------------------------------------------fila 1---------------------------------------------------------- -->
+<div class="code-container" id="codeContainer1" data-speed="0.5">
+  <div class="language">Python</div>
+  <pre class="code">
+    <code>
+      # Iniciar la interfaz
+      ventana.mainloop()
+    </code>
+  </pre>
+  <button class="copy-button" id="copyButton1" onclick="copyCode('codeContainer1', 'copyButton1')">code copy</button>
+</div>
 
- <!-- ------------------------------------------fila 4---------------------------------------------------------- -->
- <div class="code-container" id="codeContainer4">
+<!-- ------------------------------------------fila 2---------------------------------------------------------- -->
+<div class="code-container" id="codeContainer2" data-speed="1.5">
+  <div class="language">JavaScript</div>
+  <pre class="code">
+    <code>
+      // Obtener el elemento por ID
+    </code>
+  </pre>
+  <button class="copy-button" id="copyButton2" onclick="copyCode('codeContainer2', 'copyButton2')">code copy</button>
+</div>
+
+<!-- ------------------------------------------fila 3---------------------------------------------------------- -->
+<div class="code-container" id="codeContainer3" data-speed="0.8">
+  <div class="language">JavaScript</div>
+  <pre class="code">
+    <code>
+      // Obtener el elemento por ID
+    </code>
+  </pre>
+  <button class="copy-button" id="copyButton3" onclick="copyCode('codeContainer3', 'copyButton3')">code copy</button>
+</div>
+
+<!-- ------------------------------------------fila 4---------------------------------------------------------- -->
+<div class="code-container" id="codeContainer4" data-speed="80">
   <div class="language">JavaScript</div>
   <pre class="code">
     <code>
@@ -159,3 +162,4 @@
 </body>
 
 </html>
+
